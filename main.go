@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	"flag"
 	"fmt"
 	"net/http"
 	"path/filepath"
@@ -34,9 +33,10 @@ func getSelfSignedOrLetsEncryptCert(certManager *autocert.Manager) func(hello *t
 }
 
 func main() {
-	flag.StringVar(&domain, "domain", "", "domain name to request your certificate")
-	flag.Parse()
+	//flag.StringVar(&domain, "domain", "", "domain name to request your certificate")
+	//flag.Parse()
 
+	domain := "167.71.16.181"
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Hello HTTP/2")
