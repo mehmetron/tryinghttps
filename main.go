@@ -11,8 +11,8 @@ import (
 func main() {
 	certManager := autocert.Manager{
 		Prompt:     autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist("167.71.16.181"), //Your domain here
-		Cache:      autocert.DirCache("certs"),              //Folder for storing certificates
+		HostPolicy: autocert.HostWhitelist("hackrpad.com"), //Your domain here
+		Cache:      autocert.DirCache("certs"),             //Folder for storing certificates
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
