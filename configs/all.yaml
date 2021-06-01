@@ -13,8 +13,7 @@ http:
   middlewares:
     https-redirect:
       redirectScheme:
-        scheme: https
-        port: "443"
+        scheme: secure
         permanent: true
 
   services:
