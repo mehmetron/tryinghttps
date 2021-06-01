@@ -10,12 +10,6 @@ http:
         certResolver: myresolver
         options: tlsoptions
 
-  middlewares:
-    https-redirect:
-      redirectScheme:
-        scheme: https
-        permanent: true
-
   services:
     allbackend:
       loadBalancer:
