@@ -3,6 +3,11 @@
 entryPoints:
   unsecure:
     address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: secure
+          scheme: https
   secure:
     address: :443
 
