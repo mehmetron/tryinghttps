@@ -13,8 +13,8 @@ services:
       - "443:443"
 
     volumes:
-      - ./config/traefik.yaml:/etc/traefik.yaml
-      - ./config/all.yaml:/all.yaml
+      - ./configs/traefik.yaml:/traefik.yaml
+      - ./configs/all.yaml:/all.yaml
 
   whoami:
     # A container that exposes an API to show its IP address
