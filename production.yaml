@@ -2,14 +2,11 @@ version: '3'
 
 services:
   reverse-proxy:
-    # The official v2 Traefik docker image
     image: traefik:v2.4
     restart: always
     ports:
-      # The HTTP port
-      - "80:80"
-      # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "80:80" # The HTTP port
+      - "8080:8080" # The Web UI (enabled by --api.insecure=true)
       - "443:443"
 
     volumes:
@@ -19,11 +16,12 @@ services:
       - web
 
   api:
-    # A container that exposes an API to show its IP address
     image: hello
     restart: always
     ports:
       - "8090:8090"
+    depends_on:
+      - postgresql
     networks:
       - web
       - backend
