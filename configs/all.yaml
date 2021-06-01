@@ -1,10 +1,10 @@
 http:
   routers:
     unsecurerouter:
-      rule: "Host(`hackrpad.com`)"
+      rule: "Host(`localhost`)"
       service: allbackend
     allbackendRouter:
-      rule: "Host(`hackrpad.com`)"
+      rule: "Host(`localhost`)"
       service: allbackend
       tls:
         certResolver: myresolver
@@ -14,7 +14,7 @@ http:
     allbackend:
       loadBalancer:
         servers:
-          - url: "http://hackrpad.com:8090/"
+          - url: "http://localhost:8090/"
 
 tls:
   options:
