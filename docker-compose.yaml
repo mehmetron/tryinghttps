@@ -16,7 +16,7 @@ services:
       - ./configs/traefik.yaml:/traefik.yaml
       - ./configs/all.yaml:/all.yaml
 
-  whoami:
+  api:
     # A container that exposes an API to show its IP address
     image: hello
     ports:

@@ -10,6 +10,13 @@ http:
         certResolver: myresolver
         options: tlsoptions
 
+  middlewares:
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        port: "443"
+        permanent: true
+
   services:
     allbackend:
       loadBalancer:
