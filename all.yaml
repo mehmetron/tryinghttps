@@ -1,0 +1,22 @@
+http:
+  routers:
+    unsecurerouter:
+      rule: "Host(`hackrpad.com`)"
+      service: allbackend
+    allbackendRouter:
+      rule: "Host(`hackrpad.com`)"
+      service: allbackend
+      tls:
+        certResolver: myresolver
+        options: tlsoptions
+
+  services:
+    allbackend:
+      loadBalancer:
+        servers:
+          - url: "http://hackrpad.com:8090/"
+
+tls:
+  options:
+    tlsoptions:
+      minVersion:  VersionTLS12

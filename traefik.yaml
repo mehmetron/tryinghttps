@@ -1,0 +1,19 @@
+# Static configuration
+
+entryPoints:
+  unsecure:
+    address: :80
+  secure:
+    address: :443
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: cureoglu1@gmail.com
+      storage: acme.json
+      httpChallenge:
+        entryPoint: unsecure
+providers:
+  file:
+    filename: all.yaml
+    watch: true
