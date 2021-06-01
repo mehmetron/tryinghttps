@@ -4,7 +4,7 @@ services:
   reverse-proxy:
     # The official v2 Traefik docker image
     image: traefik:v2.4
-
+    restart: always
     ports:
       # The HTTP port
       - "80:80"
@@ -15,12 +15,40 @@ services:
     volumes:
       - ./configs/traefik.yaml:/traefik.yaml
       - ./configs/all.yaml:/all.yaml
+    networks:
+      - web
 
   api:
     # A container that exposes an API to show its IP address
     image: hello
+    restart: always
     ports:
       - "8090:8090"
+    networks:
+      - web
+      - backend
 
 
+  postgresql:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=turhan99
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
 
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  web:
+    external: true
+  backend:
+    external: false
