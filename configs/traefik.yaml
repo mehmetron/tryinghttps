@@ -17,3 +17,7 @@ providers:
   file:
     filename: all.yaml
     watch: true
+
+api:
+  dashboard: true
+  insecure: true
