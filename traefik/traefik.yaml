@@ -1,0 +1,27 @@
+providers:
+  docker: {}
+
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: cureoglu1@gmail.com
+      storage: acme.json
+      httpChallenge:
+        # used during the challenge
+        entryPoint: web
+
+
+
+http:
+  routers:
+    web-secure-router:
+      rule: "Host(`hackrpad.com`) || Host(`www.hackrpad.com`)"
+      tls:
+        certResolver: myresolver

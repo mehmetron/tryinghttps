@@ -1,41 +1,38 @@
 package main
 
 import (
+	"crypto/tls"
+	"log"
 	"net/http"
-
-	"golang.org/x/crypto/acme/autocert"
+	"time"
 )
 
 func main() {
-	//certManager := autocert.Manager{
-	//	Prompt:     autocert.AcceptTOS,
-	//	HostPolicy: autocert.HostWhitelist("hackrpad.com"), //Your domain here
-	//	Cache:      autocert.DirCache("certs"),             //Folder for storing certificates
-	//}
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello world"))
-	})
-
-	//server := &http.Server{
-	//	Addr: ":https",
-	//	TLSConfig: &tls.Config{
-	//		GetCertificate: certManager.GetCertificate,
-	//	},
-	//}
-	//
-	//go http.ListenAndServe(":http", certManager.HTTPHandler(nil))
-	//
-	//log.Fatal(server.ListenAndServeTLS("", "")) //Key and cert are coming from Let's Encrypt
-
-	m := &autocert.Manager{
-		Cache:      autocert.DirCache("certs"),
-		Prompt:     autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist("hackrpad.com", "www.hackrpad.com"),
+	certPem := []byte(`-----BEGIN CERTIFICATE-----
+MIIBhTCCASugAwIBAgIQIRi6zePL6mKjOipn+dNuaTAKBggqhkjOPQQDAjASMRAw
+DgYDVQQKEwdBY21lIENvMB4XDTE3MTAyMDE5NDMwNloXDTE4MTAyMDE5NDMwNlow
+EjEQMA4GA1UEChMHQWNtZSBDbzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABD0d
+7VNhbWvZLWPuj/RtHFjvtJBEwOkhbN/BnnE8rnZR8+sbwnc/KhCk3FhnpHZnQz7B
+5aETbbIgmuvewdjvSBSjYzBhMA4GA1UdDwEB/wQEAwICpDATBgNVHSUEDDAKBggr
+BgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdEQQiMCCCDmxvY2FsaG9zdDo1
+NDUzgg4xMjcuMC4wLjE6NTQ1MzAKBggqhkjOPQQDAgNIADBFAiEA2zpJEPQyz6/l
+Wf86aX6PepsntZv2GYlA5UpabfT2EZICICpJ5h/iI+i341gBmLiAFQOyTDT+/wQc
+6MF9+Yw1Yy0t
+-----END CERTIFICATE-----`)
+	keyPem := []byte(`-----BEGIN EC PRIVATE KEY-----
+MHcCAQEEIIrYSSNQFaA2Hwf1duRSxKtLYX5CB04fSeQ6tF1aY/PuoAoGCCqGSM49
+AwEHoUQDQgAEPR3tU2Fta9ktY+6P9G0cWO+0kETA6SFs38GecTyudlHz6xvCdz8q
+EKTcWGekdmdDPsHloRNtsiCa697B2O9IFA==
+-----END EC PRIVATE KEY-----`)
+	cert, err := tls.X509KeyPair(certPem, keyPem)
+	if err != nil {
+		log.Fatal(err)
 	}
-	s := &http.Server{
-		Addr:      ":https",
-		TLSConfig: m.TLSConfig(),
+	cfg := &tls.Config{Certificates: []tls.Certificate{cert}}
+	srv := &http.Server{
+		TLSConfig:    cfg,
+		ReadTimeout:  time.Minute,
+		WriteTimeout: time.Minute,
 	}
-	s.ListenAndServeTLS("", "")
+	log.Fatal(srv.ListenAndServeTLS("", ""))
 }
