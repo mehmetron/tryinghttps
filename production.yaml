@@ -12,6 +12,7 @@ services:
     volumes:
       - ./configs/traefik.yaml:/traefik.yaml
       - ./configs/all.yaml:/all.yaml
+      - ./configs/acme.json:/acme.json
     networks:
       - web
 
