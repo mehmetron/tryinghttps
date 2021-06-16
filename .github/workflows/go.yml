@@ -35,7 +35,7 @@ jobs:
           username: root
           key: ${{secrets.CD_SK}}
           port: 22
-          scripts: |
+          script: |
             cd tryinghttps
             git pull origin master
             git status
