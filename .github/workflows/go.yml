@@ -38,7 +38,7 @@ jobs:
           script: |
             cd tryinghttps
             git pull origin master
-            git status
+            docker rmi hello
             docker image build -t hello .
             docker-compose -f production.yaml down
             docker-compose -f production.yaml up
