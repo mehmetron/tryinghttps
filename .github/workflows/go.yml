@@ -37,8 +37,5 @@ jobs:
           port: 22
           script: |
             cd tryinghttps
-            git pull origin master
-            docker rmi hello
-            docker image build -t hello .
-            docker-compose -f production.yaml down
-            docker-compose -f production.yaml up
+            echo "banana "
+
