@@ -23,3 +23,22 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+  CD:
+    name: Continous Delivery
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into production server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 167.71.16.181
+          username: root
+          key: ${{secrets.CD_SK}}
+          port: 22
+          scripts: |
+            cd tryinghttps
+            git pull origin master
+            git status
+            docker image build -t hello .
+            docker-compose -f production.yaml down
+            docker-compose -f production.yaml up
