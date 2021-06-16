@@ -40,4 +40,4 @@ jobs:
             git pull
             docker image build -t hello .
             docker-compose -f production.yaml down
-            docker-compose -d -f production.yaml up
+            docker-compose -f production.yaml up -d
