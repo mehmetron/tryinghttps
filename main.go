@@ -70,7 +70,10 @@ func populateDB() {
 
 func GetAllCourses() []Course {
 	var courses []Course
-	db.Select(&courses, "SELECT * FROM course ORDER BY course_name ASC")
+	err := db.Select(&courses, "SELECT * FROM course ORDER BY course_name ASC")
+	if err != nil {
+		return nil
+	}
 	course1, course2 := courses[0], courses[1]
 
 	fmt.Printf("%#v\n%#v", course1, course2)
@@ -84,7 +87,10 @@ func courses(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	courses := GetAllCourses()
-	json.NewEncoder(w).Encode(courses)
+	err := json.NewEncoder(w).Encode(courses)
+	if err != nil {
+		return
+	}
 }
 
 func hello(w http.ResponseWriter, req *http.Request) {
@@ -107,5 +113,8 @@ func main() {
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/courses", courses)
 
-	http.ListenAndServe(":8090", nil)
+	err := http.ListenAndServe(":8090", nil)
+	if err != nil {
+		return
+	}
 }
