@@ -1,5 +1,5 @@
 name: Go
-
+# https://levelup.gitconnected.com/make-deployment-easy-with-continuous-delivery-and-github-action-f5dde92468a1
 on:
   push:
     branches: [ main ]
@@ -27,6 +27,7 @@ jobs:
   CD:
     name: Continous Delivery
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: SSH into production server
         uses: appleboy/ssh-action@master
