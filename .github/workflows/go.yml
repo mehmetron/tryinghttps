@@ -24,6 +24,9 @@ jobs:
     - name: Test
       run: go test -v ./...
 
+    - name: Linting
+      uses: golangci/golangci-lint-action@v2
+
   CD:
     name: Continous Delivery
     runs-on: ubuntu-latest

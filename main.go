@@ -89,7 +89,7 @@ func courses(w http.ResponseWriter, req *http.Request) {
 
 func hello(w http.ResponseWriter, req *http.Request) {
 
-	fmt.Fprintf(w, "arigato bitchesss. High on love. We  all japonese \n")
+	fmt.Fprintf(w, "arigato bitchesss. Yahwe \n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
