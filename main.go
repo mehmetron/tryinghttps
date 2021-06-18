@@ -131,7 +131,7 @@ func main() {
 func penis() {
 	m := http.NewServeMux()
 
-	m.HandleFunc("/api", hey)
+	m.HandleFunc("/api/hey", hey)
 	m.HandleFunc("/api/sam", sam)
 	m.HandleFunc("/api/bob", bob)
 
