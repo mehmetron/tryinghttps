@@ -95,7 +95,7 @@ func courses(w http.ResponseWriter, req *http.Request) {
 
 func hello(w http.ResponseWriter, req *http.Request) {
 
-	fmt.Fprintf(w, "arigato bitchesss. Yahwe \n")
+	fmt.Fprintf(w, "samsara  canka mine \n")
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
@@ -109,12 +109,51 @@ func headers(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 
-	http.HandleFunc("/", hello)
-	http.HandleFunc("/headers", headers)
-	http.HandleFunc("/courses", courses)
+	go penis()
 
-	err := http.ListenAndServe(":8090", nil)
-	if err != nil {
-		return
+	n := http.NewServeMux()
+	n.HandleFunc("/", hello)
+	n.HandleFunc("/headers", headers)
+	n.HandleFunc("/courses", courses)
+
+	s := &http.Server{
+		Addr:    ":8090",
+		Handler: n,
 	}
+
+	err := s.ListenAndServe()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+}
+
+func penis() {
+	m := http.NewServeMux()
+
+	m.HandleFunc("/api", hey)
+	m.HandleFunc("/api/sam", sam)
+	m.HandleFunc("/api/bob", bob)
+
+	s := &http.Server{
+		Addr:    ":8001",
+		Handler: m,
+	}
+
+	err := s.ListenAndServe()
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func hey(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "this da api hey")
+}
+
+func sam(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "this da api sam")
+}
+
+func bob(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "this da api bob")
 }

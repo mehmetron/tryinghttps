@@ -9,14 +9,24 @@ http:
       tls:
         certResolver: myresolver
         options: tlsoptions
+    apiRouter:
+      rule: "Host(`hackrpad.com`) && PathPrefix(`/api/`)"
+      service: apibackend
+      tls:
+        certResolver: myresolver
+        options: tlsoptions
 
   services:
     allbackend:
       loadBalancer:
         servers:
           - url: "http://hackrpad.com:8090/"
+    apibackend:
+      loadBalancer:
+        servers:
+          - url: "http://hackrpad.com:8001/"
 
 tls:
   options:
     tlsoptions:
-      minVersion:  VersionTLS12
+      minVersion: VersionTLS12
